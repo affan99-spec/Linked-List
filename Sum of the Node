@@ -1,0 +1,71 @@
+#include <iostream>
+
+using namespace std;
+
+struct Node
+{
+    int data;
+    struct Node *next;
+};
+
+struct Node *first=NULL;
+
+void Create(int A[],int n)
+{
+    int i;
+    struct Node *temp, *last;
+    first = new Node;
+    first->data = A[0];
+    first->next = 0;
+    last = first;
+    
+    for(i=1; i<n; i++)
+    {
+        temp=new Node;
+        temp->data=A[i];
+        temp->next=0;
+        last->next = temp;
+        last=temp;
+    }
+    
+}
+
+void Display(struct Node* p)
+{
+    if(p != 0)
+    {
+        cout<<p->data<<"->";
+        Display(p->next);
+    }
+}
+
+// Iterative Function of Sum Node //
+int Add(struct Node *p)
+{
+    int sum=0;
+    while(p != 0)
+    {
+        sum+=p->data;
+        p=p->next;
+    }
+    return sum;
+}
+
+// Recursive Function of Sum Node // 
+int RAdd(struct Node *p)
+{
+    if(p==0)
+        return 0;
+    return p->data+RAdd(p->next);
+}
+
+int main()
+{
+    int A[]={3,5,7,10,15,8,12,18,20};
+    Create(A, 9);
+    cout<<"Sum of the Node is "<<Add(first)<<endl;
+    cout<<"Sum of the Node is "<<RAdd(first)<<endl;
+    Display(first);
+
+    return 0;
+}
