@@ -1,0 +1,95 @@
+#include <iostream>
+#include<climits>
+
+using namespace std;
+
+struct Node
+{
+    int data;
+    struct Node *next;
+};
+
+struct Node *first=NULL;
+
+void Create(int A[],int n)
+{
+    int i;
+    struct Node *temp, *last;
+    first = new Node;
+    first->data = A[0];
+    first->next = 0;
+    last = first;
+    
+    for(i=1; i<n; i++)
+    {
+        temp=new Node;
+        temp->data=A[i];
+        temp->next=0;
+        last->next = temp;
+        last=temp;
+    }
+    
+}
+
+void Display(struct Node* p)
+{
+    if(p != 0)
+    {
+        cout<<p->data<<"->";
+        Display(p->next);
+    }
+}
+
+// Iterative Function for Max Node //
+int Max(struct Node *p)
+{
+    int m = INT_MIN;
+    while(p)
+    {
+        if(p->data > m)
+            m=p->data;
+        p=p->next;
+    }
+    return m;
+}
+
+// Recursive Function for Max Node // 
+int RMax(struct Node *p)
+{
+    int x=0;
+    if(p==0)
+        return INT_MIN;
+    x=RMax(p->next);
+    return x>p->data ? x:p->data;
+}
+
+// Recursive Function for Max Node //
+int RRMax(struct Node *p)
+{
+    int x=0;
+    if(p==0)
+    {
+        return INT_MIN;
+    }
+    else
+    {
+        x=RRMax(p->next);
+        if(x>p->data)
+            return x;
+        else
+            return p->data;
+    }
+    return x;
+}
+
+int main()
+{
+    int A[]={3,5,7,10,15,8,12,18,20};
+    Create(A, 9);
+    cout<<"Maximum of the Node is "<<Max(first)<<endl;
+    cout<<"Maximum of the Node is "<<RMax(first)<<endl;
+    cout<<"Maximum of the Node is "<<RRMax(first)<<endl;
+    Display(first);
+
+    return 0;
+}
