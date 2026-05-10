@@ -1,0 +1,88 @@
+#include <iostream>
+#include<climits>
+
+using namespace std;
+
+struct Node
+{
+    int data;
+    struct Node *next;
+};
+
+struct Node *first=NULL;
+
+void Create(int A[],int n)
+{
+    int i;
+    struct Node *temp, *last;
+    first = new Node;
+    first->data = A[0];
+    first->next = 0;
+    last = first;
+    
+    for(i=1; i<n; i++)
+    {
+        temp=new Node;
+        temp->data=A[i];
+        temp->next=0;
+        last->next = temp;
+        last=temp;
+    }
+    
+}
+
+void Display(struct Node* p)
+{
+    if(p != 0)
+    {
+        cout<<p->data<<"->";
+        Display(p->next);
+    }
+}
+
+// Iterative Function for Search Node //
+struct Node *LinearSearch(struct Node *p,int key)
+{
+    while(p!=0)
+    {
+        if(key == p->data)
+            return p;
+        p=p->next;
+    }
+    return 0;
+}
+
+// Recursive Function for Search Node // 
+struct Node *RLinearSearch(struct Node *p,int key)
+{
+    if(p==0)
+        return 0;
+    if(key==p->data)
+        return p;
+    return RLinearSearch(p->next,key);
+}
+
+int main()
+{
+    struct Node *temp;
+    struct Node *t;
+    int A[]={3,85,37,10,1,28,12,18,2};
+    Create(A, 9);
+    temp=LinearSearch(first,15);
+    t=RLinearSearch(first,37);
+    
+    // Iterative Call Function //
+    if(temp)
+        cout<<"Key is found "<<temp->data<<endl;
+    else
+        cout<<"Key is not found "<<endl;
+    
+    // Recursive Call Function //
+    if(t)
+        cout<<"Key is found "<<t->data<<endl;
+    else
+        cout<<"Key is not found "<<endl;
+    Display(first);
+
+    return 0;
+}
