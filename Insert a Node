@@ -1,0 +1,76 @@
+#include <iostream>
+#include<climits>
+
+using namespace std;
+
+struct Node
+{
+    int data;
+    struct Node *next;
+};
+
+struct Node *first=NULL;
+
+void Create(int A[],int n)
+{
+    int i;
+    struct Node *temp, *last;
+    first = new Node;
+    first->data = A[0];
+    first->next = 0;
+    last = first;
+    
+    for(i=1; i<n; i++)
+    {
+        temp=new Node;
+        temp->data=A[i];
+        temp->next=0;
+        last->next = temp;
+        last=temp;
+    }
+    
+}
+
+void Display(struct Node* p)
+{
+    if(p != 0)
+    {
+        cout<<p->data<<"->";
+        Display(p->next);
+    }
+}
+
+void Insert(struct Node *p,int index,int x)
+{
+    struct Node *t;
+    int i;
+    t=new Node;
+    t->data = x;
+    if(index==0)
+    {
+        t->next=first;
+        first=t;
+    }
+    else 
+    {
+        p=first;
+        for(i=0; i<index-1; i++)
+            p=p->next;
+        t->next = p->next;
+        p->next = t;
+    }
+}
+
+int main()
+{
+    struct Node *temp;
+    int A[]={3,5,7};
+    Create(A, 3);
+    Insert(first,0,10);
+    Display(first);
+    cout<<endl;
+    Insert(first,3,9);
+    Display(first);
+
+    return 0;
+}
