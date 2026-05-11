@@ -1,0 +1,125 @@
+#include <iostream>
+
+using namespace std;
+
+struct Node
+{
+    int data;
+    struct Node *next;
+};
+
+struct Node *first=NULL, *second=NULL, *third=NULL;
+
+void Create1(int A[],int n)
+{
+    int i;
+    struct Node *temp, *last;
+    first = new Node;
+    first->data = A[0];
+    first->next = 0;
+    last = first;
+    
+    for(i=1; i<n; i++)
+    {
+        temp=new Node;
+        temp->data=A[i];
+        temp->next=0;
+        last->next = temp;
+        last=temp;
+    }
+    
+}
+
+void Create2(int A[],int n)
+{
+    int i;
+    struct Node *temp, *last;
+    second = new Node;
+    second->data = A[0];
+    second->next = 0;
+    last = second;
+    
+    for(i=1; i<n; i++)
+    {
+        temp=new Node;
+        temp->data=A[i];
+        temp->next=0;
+        last->next = temp;
+        last=temp;
+    }
+    
+}
+
+void Display(struct Node* p)
+{
+    while(p != 0)
+    {
+        cout<<p->data<<"->";
+        p=p->next;
+    }
+    cout<<endl;
+}
+
+void Merge(struct Node *p,struct Node *q)
+{
+    struct Node *last;
+    if(p->data < q->data)
+    {
+        third=last=p;
+        p=p->next;
+        last->next=0;
+    }
+    else
+    {
+        third=last=q;
+        q=q->next;
+        last->next=0;
+    }
+    while(p && q)
+    {
+        if(p->data < q->data)
+        {
+            last->next=p;
+            last=p;
+            p=p->next;
+            last->next=0;
+        }
+        else
+        {
+            last->next=q;
+            last=q;
+            q=q->next;
+            last->next=0;
+        }
+    }
+    if(p)
+    {
+        last->next=p;
+    }
+    else
+    {
+        last->next=q;
+    }
+}
+
+int main()
+{
+    int A[]={10,20,30,40,50};
+    int B[]={5,15,25,35,45};
+    Create1(A,5);
+    Create2(B,5);
+    
+    cout<<"First Linked List is "<<endl;
+    Display(first);
+    cout<<endl;
+    
+    cout<<"Second Linked List is "<<endl;
+    Display(second);
+    cout<<endl;
+    
+    Merge(first,second);
+    cout<<"Merge of Linked list is "<<endl;
+    Display(third);
+
+    return 0;
+}
