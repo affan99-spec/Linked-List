@@ -55,9 +55,17 @@ void Display(struct Node* p)
 
 int main()
 {
-    int A[]={10,20,30,40,50};
+    int A[]={10,20,3,40,50};
     Create(A,5);
-    cout<<isSorted(first)<<endl;
+    if(isSorted(first))
+    {
+        cout<<"Sorted\n";
+    }
+    else
+    {
+        cout<<"Not Sorted\n";
+    }
+    
     Display(first);
 
     return 0;
