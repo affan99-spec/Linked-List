@@ -1,0 +1,81 @@
+#include <iostream>
+
+using namespace std;
+
+struct Node
+{
+    int data;
+    struct Node *next;
+};
+
+struct Node *first=NULL;
+
+void Create(int A[],int n)
+{
+    int i;
+    struct Node *temp, *last;
+    first = new Node;
+    first->data = A[0];
+    first->next = 0;
+    last = first;
+    
+    for(i=1; i<n; i++)
+    {
+        temp=new Node;
+        temp->data=A[i];
+        temp->next=0;
+        last->next = temp;
+        last=temp;
+    }
+    
+}
+
+// Revrse a linked list using link the Address of right to left //
+void Reverse(struct Node *p)
+{
+    struct Node *q, *r;
+    q=r=0;
+    while(p!=0)
+    {
+        r=q;
+        q=p;
+        p=p->next;
+        q->next=r;
+    }
+    first=q;
+}
+
+// Reverse a Linked list Using Recurssive Function //
+void RReverse(struct Node *q, struct Node *p)
+{
+    if(p)
+    {
+        RReverse(p, p->next);
+        p->next=q;
+    }
+    else
+    {
+        first=q;
+    }
+}
+
+void Display(struct Node* p)
+{
+    while(p != 0)
+    {
+        cout<<p->data<<"->";
+        p=p->next;
+    }
+    cout<<endl;
+}
+
+int main()
+{
+    int A[]={10,20,30,40,50};
+    Create(A,5);
+    Reverse(first); // Reverse this Linking Address......
+    RReverse(0,first); // Again Reverse this Recursive Call.....
+    Display(first);
+
+    return 0;
+}
