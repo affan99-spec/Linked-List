@@ -30,6 +30,7 @@ void Create(int A[],int n)
     
 }
 
+// Iterative Display of Circular Linked List // 
 void Display(struct Node* p)
 {
     do
@@ -41,11 +42,25 @@ void Display(struct Node* p)
     cout<<endl;
 }
 
+// Recursive Display of Circular Linked List // 
+void RDisplay(struct Node *p)
+{
+    static int flag=0;
+    if(p!=head || flag==0)
+    {
+        flag=1;
+        cout<<p->data<<"->";
+        RDisplay(p->next);
+    }
+    flag=0;
+}
+
 int main()
 {
     int A[]={10,20,30,40,50};
     Create(A,5);
     Display(head);
+    RDisplay(head);
 
     return 0;
 }
